@@ -1,0 +1,71 @@
+:host {
+	display: block;
+	min-height: 100vh;
+}
+
+.layout-container {
+	min-height: 100vh;
+	background: #f3f6fb;
+}
+
+.layout-sidenav {
+	width: 250px;
+	background: #ffffff;
+	border-right: 1px solid #d9e3ef;
+}
+
+.sidenav-header {
+	padding: 1rem;
+	font-weight: 700;
+	font-size: 1.1rem;
+	color: #1d3b5c;
+	border-bottom: 1px solid #e4ecf5;
+}
+
+.top-toolbar {
+	position: sticky;
+	top: 0;
+	z-index: 30;
+	background: #1f5ea8;
+	color: #ffffff;
+}
+
+.brand {
+	font-weight: 700;
+	letter-spacing: 0.3px;
+}
+
+.toolbar-nav {
+	margin-left: 1rem;
+	display: flex;
+	gap: 0.25rem;
+}
+
+.toolbar-spacer {
+	flex: 1;
+}
+
+.active-link {
+	font-weight: 700;
+}
+
+.main-content {
+	min-height: calc(100vh - 120px);
+}
+
+.app-footer {
+	text-align: center;
+	padding: 0.9rem;
+	color: #607891;
+	background: #ffffff;
+	border-top: 1px solid #d9e3ef;
+}
+
+.loading-overlay {
+	position: fixed;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	background: rgba(243, 246, 251, 0.78);
+	z-index: 1000;
+}

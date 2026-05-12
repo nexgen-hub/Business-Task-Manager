@@ -1,0 +1,39 @@
+.auth-page {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: 1rem;
+	background: linear-gradient(135deg, #f4f8ff 0%, #ecf5f0 100%);
+}
+
+.auth-card {
+	width: min(100%, 420px);
+}
+
+.auth-form {
+	display: grid;
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+
+mat-form-field {
+	width: 100%;
+}
+
+button[type='submit'] {
+	min-height: 44px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+
+.submit-error {
+	margin: 0;
+	color: #b3261e;
+	font-size: 0.9rem;
+}
+
+mat-card-actions {
+	padding: 0 1rem 1rem;
+}

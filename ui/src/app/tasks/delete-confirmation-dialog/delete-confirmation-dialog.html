@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Delete Task</h2>
+
+<mat-dialog-content>
+  <p>Are you sure you want to delete <strong>{{ data.title }}</strong>?</p>
+  <p class="warning">This action cannot be undone.</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button color="warn" (click)="confirm()">Delete</button>
+</mat-dialog-actions>

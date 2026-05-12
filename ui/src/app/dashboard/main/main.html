@@ -1,0 +1,80 @@
+<section class="dashboard-page">
+	<header class="dashboard-header">
+		<h1>Welcome, {{ userName }}</h1>
+		<p>Your task activity overview</p>
+	</header>
+
+	<section class="stats-grid">
+		<mat-card>
+			<mat-card-title>Total Tasks</mat-card-title>
+			<mat-card-content>{{ totalTasks }}</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<mat-card-title>Completed Tasks</mat-card-title>
+			<mat-card-content>{{ completedTasks }}</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<mat-card-title>Pending Tasks</mat-card-title>
+			<mat-card-content>{{ pendingTasks }}</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<mat-card-title>Overdue Tasks</mat-card-title>
+			<mat-card-content>{{ overdueTasks }}</mat-card-content>
+		</mat-card>
+	</section>
+
+	<section class="charts-grid">
+		<mat-card>
+			<mat-card-title>Tasks by Status</mat-card-title>
+			<mat-card-content>
+				<canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="'pie'"></canvas>
+			</mat-card-content>
+		</mat-card>
+
+		<mat-card>
+			<mat-card-title>Tasks by Priority</mat-card-title>
+			<mat-card-content>
+				<canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="'bar'"></canvas>
+			</mat-card-content>
+		</mat-card>
+	</section>
+
+	<mat-card>
+		<mat-card-title>Recent Tasks</mat-card-title>
+		<mat-card-content>
+			<div class="table-wrapper">
+				<table mat-table [dataSource]="recentTasks" [trackBy]="trackByTaskId" class="mini-table">
+					<ng-container matColumnDef="title">
+						<th mat-header-cell *matHeaderCellDef>Title</th>
+						<td mat-cell *matCellDef="let task">{{ task.title }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="status">
+						<th mat-header-cell *matHeaderCellDef>Status</th>
+						<td mat-cell *matCellDef="let task">{{ task.status }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="priority">
+						<th mat-header-cell *matHeaderCellDef>Priority</th>
+						<td mat-cell *matCellDef="let task">{{ task.priority }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="created_at">
+						<th mat-header-cell *matHeaderCellDef>Created</th>
+						<td mat-cell *matCellDef="let task">{{ task.created_at | date: 'mediumDate' }}</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="['title', 'status', 'priority', 'created_at']"></tr>
+					<tr mat-row *matRowDef="let row; columns: ['title', 'status', 'priority', 'created_at']"></tr>
+				</table>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<div class="loading-state" *ngIf="isLoading">
+		<mat-spinner diameter="36"></mat-spinner>
+	</div>
+</section>

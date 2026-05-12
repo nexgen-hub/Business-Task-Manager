@@ -1,0 +1,65 @@
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav #drawer class="layout-sidenav" mode="over">
+    <div class="sidenav-header">TaskManager</div>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        *ngFor="let link of navLinks"
+        [routerLink]="link.path"
+        (click)="drawer.close()"
+        [class.active-link]="isActiveRoute(currentRoute$ | async, link.path)"
+      >
+        {{ link.label }}
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="top-toolbar" color="primary">
+      <button mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async" aria-label="Open menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <div class="brand">TaskManager</div>
+
+      <nav class="toolbar-nav" *ngIf="isAuthenticated && !(isHandset$ | async)">
+        <a
+          mat-button
+          *ngFor="let link of navLinks"
+          [routerLink]="link.path"
+          [class.active-link]="isActiveRoute(currentRoute$ | async, link.path)"
+        >
+          {{ link.label }}
+        </a>
+      </nav>
+
+      <span class="toolbar-spacer"></span>
+
+      <button mat-button [matMenuTriggerFor]="userMenu" *ngIf="isAuthenticated">
+        <mat-icon>account_circle</mat-icon>
+        {{ currentUserEmail }}
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <button mat-menu-item disabled>
+          <mat-icon>mail</mat-icon>
+          <span>{{ currentUserEmail }}</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="app-footer">{{ currentYear }} TaskManager. All rights reserved.</footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<div class="loading-overlay" *ngIf="isLoading$ | async">
+  <mat-spinner diameter="46"></mat-spinner>
+</div>
