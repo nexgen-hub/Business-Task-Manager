@@ -69,8 +69,20 @@ export class AuthService {
     try {
       const payloadBase64 = token.split('.')[1];
       const payloadJson = atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/'));
-      const payload = JSON.parse(payloadJson) as { username?: string; user_id?: string };
-      return payload.username || payload.user_id || 'User';
+      const payload = JSON.parse(payloadJson) as { username?: string; email?: string; user_id?: string };
+
+      // Prioritize returning the username
+      if (payload.username) {
+        return payload.username;
+      }
+
+      // Fallback to email if username is not available
+      if (payload.email) {
+        return payload.email.split('@')[0]; // Extract the part before '@' as a username-like fallback
+      }
+
+      // Fallback to user_id if neither username nor email is available
+      return payload.user_id || 'User';
     } catch {
       return 'User';
     }
